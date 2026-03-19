@@ -1,0 +1,19 @@
+---
+- name: My First Ansible Playbook
+  hosts: localhost
+  connection: local
+  become: true
+  
+  tasks:
+    - name: Ensure my Projects folder exists
+      file:
+        path: /home/Developer/Ansible/k8s-projects
+        state: directory
+        mode: '0755'
+
+    - name: Create a simple MOTD (Message of the Day)
+      copy:
+        content: "Property of a soon to be pro K8s Engineer. Don't touch the Macbook!\n"
+        dest: /home/Developer/Ansible/k8s-projects/welcome.txt
+
+
