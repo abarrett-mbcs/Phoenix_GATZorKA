@@ -1,6 +1,6 @@
 # Phoenix_GATZorKA
 
-"You shouldn't need a $3,000 M3 Max to learn Kubernetes. You just need a strategy."
+"You shouldn't need a £3,000 M3 Max to learn Kubernetes. You just need a strategy."
 
 Project Phoenix_GATZorKA is a declarative blueprint for the modern SRE. This isn't just a collection of scripts; it's a Phoenix-style resurrection of a 15-year-old laptop.
 
