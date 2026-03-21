@@ -1,6 +1,7 @@
 - name Install htop
   become: true
   apt:
-    name: htop
+    name:
+      - htop
     state: present
     
