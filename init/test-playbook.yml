@@ -18,4 +18,5 @@
         content: "Property of a soon to be pro K8s Engineer. Don't touch the Macbook!\n"
         dest: /home/{{ ansible_env.SUDO_USER }}/Ansible/k8s-projects/welcome.txt
 
-
+    - name: 🌐  Setup Brave Browser
+      include_tasks: install_brave.yml
