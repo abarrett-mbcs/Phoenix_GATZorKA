@@ -7,7 +7,7 @@
   tasks:
     - name: Ensure my Projects folder exists
       file:
-        path: /home/Developer/Ansible/k8s-projects
+        path: /home/{{ ansible_env.SUDO_USER }}/Ansible/k8s-projects
         owner: "{{ ansible_env.SUDO_USER }}"
         group: "{{ ansible_env.SUDO_USER }}"
         state: directory
@@ -16,6 +16,6 @@
     - name: Create a simple MOTD (Message of the Day)
       copy:
         content: "Property of a soon to be pro K8s Engineer. Don't touch the Macbook!\n"
-        dest: /home/Developer/Ansible/k8s-projects/welcome.txt
+        dest: /home/{{ ansible_env.SUDO_USER }}/Ansible/k8s-projects/welcome.txt
 
 
