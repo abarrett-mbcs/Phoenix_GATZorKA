@@ -19,3 +19,10 @@
     name: terraform
     state: present
     update_cache: yes
+    
+- name: Prepare Terraform Working Directory
+  become: false  # Usually run as your local user
+  file:
+    path: "~/k8s-projects/terraform"
+    state: directory
+    mode: '0755'
