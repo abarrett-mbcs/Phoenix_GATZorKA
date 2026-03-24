@@ -31,7 +31,7 @@
   become: false
   # 'synchronize' is like a smart 'cp -r' that uses rsync logic
   synchronize:
-    src: "~/Developer/Phoenix_GATZorKA/Init/Phoenix_GATZorKA/terraform/"
+    src: "~/Developer/GATZorKA/Init/Phoenix_GATZorKA/terraform/"
     dest: "~/k8s-projects/terraform/"
     recursive: yes
     delete: yes # This keeps the workspace clean of "old junk"
