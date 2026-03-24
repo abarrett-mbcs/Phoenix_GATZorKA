@@ -44,7 +44,7 @@
       - "--exclude=terraform.tfstate*"
       - "--exclude=.terraform.lock.hcl"
       
-- name: 🏗️ Initialize and Apply Terraform (The 2026 Way)
+- name: Initialize and Apply Terraform
   become: true
   become_user: "{{ ansible_env.SUDO_USER }}"
   community.general.terraform:
@@ -55,9 +55,9 @@
   environment:
     TF_DATA_DIR: "/home/{{ ansible_env.SUDO_USER }}/k8s-projects/terraform/.terraform"
     # Adding this ensures the provider knows where Docker is
-    DOCKER_HOST: "unix:///var/run/docker.sock"
+    # DOCKER_HOST: "unix:///var/run/docker.sock"
   register: tf_result
 
 - name: 📊 Show Terraform Output
   debug:
-    var: tf_result.stdout_lines
+    var: tf_result # tf_result.stdout_lines
