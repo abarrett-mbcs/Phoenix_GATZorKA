@@ -45,6 +45,7 @@
     force_init: true  # <--- This is the key! It runs 'terraform init'
     init_reconfigure: true # Just in case things moved
   register: tf_result
+  ignore_errors: "{{ tf_result.msg | default('') is search('already exists') }}"
 
 - name: Show Terraform Output
   debug:
