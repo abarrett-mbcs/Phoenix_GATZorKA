@@ -35,3 +35,13 @@
     dest: "~/k8s-projects/terraform/"
     recursive: yes
     delete: yes # This keeps the workspace clean of "old junk"
+
+- name: 🏗️ Initialize Terraform (The Handshake)
+  terraform:
+    project_path: "~/k8s-projects/terraform"
+    state: present
+  register: tf_result
+
+- name: 📊 Show Terraform Output
+  debug:
+    var: tf_result
