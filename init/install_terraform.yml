@@ -31,14 +31,19 @@
         group: "{{ ansible_env.SUDO_USER }}"
         mode: '0755'
 
-    - name: Sync Terraform configuration
-      synchronize:
-        src: "~/Developer/GATZorKA/Init/Phoenix_GATZorKA/terraform/"
-        dest: "/home/{{ ansible_env.SUDO_USER }}/k8s-projects/terraform/"
-        recursive: yes
-        delete: yes
-        archive: yes # Preserves permissions/times
-
+- name: Sync Terraform configuration from Repo to Workspace
+  become: false
+  synchronize:
+    src: "~/Developer/GATZorKA/Init/Phoenix_GATZorKA/terraform/"
+    dest: "/home/{{ ansible_env.SUDO_USER }}/k8s-projects/terraform/"
+    recursive: yes
+    delete: yes
+    # ADD THIS: Prevent rsync from deleting the state it finds on the target
+    rsync_opts:
+      - "--exclude=.terraform"
+      - "--exclude=terraform.tfstate*"
+      - "--exclude=.terraform.lock.hcl"
+      
 - name: 🏗️ Initialize and Apply Terraform (The 2026 Way)
   become: true
   become_user: "{{ ansible_env.SUDO_USER }}"
