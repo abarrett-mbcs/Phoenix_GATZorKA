@@ -44,7 +44,7 @@
     state: present
     force_init: true  # <--- This is the key! It runs 'terraform init'
     init_reconfigure: true # Just in case things moved
-    register: tf_result
+  register: tf_result
 
 - name: 📊 Show Terraform Output
   debug:
