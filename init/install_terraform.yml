@@ -20,17 +20,6 @@
     state: present
     update_cache: yes
 
-- name: 🕵️ Check State File Existence
-  become: true
-  become_user: "{{ ansible_env.SUDO_USER }}"
-  stat:
-    path: "/home/{{ ansible_env.SUDO_USER }}/k8s-projects/terraform/terraform.tfstate"
-  register: st
-
-- name: 📊 Report Finding
-  debug:
-    msg: "Does the state file exist? {{ st.stat.exists }} - Path: {{ st.stat.path }}"
-
 - name: Prepare Terraform Working Directory
   become: false  # Usually run as your local user
   file:
