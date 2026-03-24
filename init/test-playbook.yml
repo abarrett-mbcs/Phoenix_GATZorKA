@@ -41,3 +41,6 @@
 
     - name: Config k9s
       include_tasks: config_k3d_k9s.yml
+
+    - name: Install Lens
+      include_tasks: install_lens.yml
