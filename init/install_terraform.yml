@@ -5,13 +5,13 @@
     dest: /usr/share/keyrings/hashicorp-archive-keyring.gpg
     mode: '0644'
 
-- name: Add HashiCorp Repository
+- name: Force Create the HashiCorp List File
   become: true
-  apt_repository:
-    repo: "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com noble main"
-    state: present
-    filename: hashicorp
-    update_cache: yes
+  copy:
+    dest: /etc/apt/sources.list.d/hashicorp.list
+    content: |
+      deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com noble main
+    mode: '0644'
 
 - name: Install Terraform
   become: true
