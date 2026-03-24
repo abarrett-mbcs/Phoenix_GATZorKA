@@ -26,3 +26,12 @@
     path: "~/k8s-projects/terraform"
     state: directory
     mode: '0755'
+
+- name: 🛰️ Sync Terraform configuration from Repo to Workspace
+  become: false
+  # 'synchronize' is like a smart 'cp -r' that uses rsync logic
+  synchronize:
+    src: "~/terraform/"
+    dest: "~/k8s-projects/terraform/"
+    recursive: yes
+    delete: yes # This keeps the workspace clean of "old junk"
