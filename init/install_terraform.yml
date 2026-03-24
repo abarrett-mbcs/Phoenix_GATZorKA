@@ -20,21 +20,24 @@
     state: present
     update_cache: yes
 
-- name: Prepare Terraform Working Directory
-  become: false  # Usually run as your local user
-  file:
-    path: "/home/{{ ansible_env.SUDO_USER }}/k8s-projects/terraform"
-    state: directory
-    mode: '0755'
+- name: Prepare Workspace and Sync Files
+  become: true # Use root to ensure we can write to /home
+  block:
+    - name: Create Project Folder
+      file:
+        path: "/home/{{ ansible_env.SUDO_USER }}/k8s-projects/terraform"
+        state: directory
+        owner: "{{ ansible_env.SUDO_USER }}"
+        group: "{{ ansible_env.SUDO_USER }}"
+        mode: '0755'
 
-- name: Sync Terraform configuration from Repo to Workspace
-  become: false
-  # 'synchronize' is like a smart 'cp -r' that uses rsync logic
-  synchronize:
-    src: "~/Developer/GATZorKA/Init/Phoenix_GATZorKA/terraform/"
-    dest: "/home/{{ ansible_env.SUDO_USER }}/k8s-projects/terraform/"
-    recursive: yes
-    delete: yes # This keeps the workspace clean of "old junk"
+    - name: Sync Terraform configuration
+      synchronize:
+        src: "~/Developer/GATZorKA/Init/Phoenix_GATZorKA/terraform/"
+        dest: "/home/{{ ansible_env.SUDO_USER }}/k8s-projects/terraform/"
+        recursive: yes
+        delete: yes
+        archive: yes # Preserves permissions/times
 
 - name: 🏗️ Initialize and Apply Terraform (The 2026 Way)
   become: true
@@ -43,14 +46,13 @@
     project_path: "/home/{{ ansible_env.SUDO_USER }}/k8s-projects/terraform"
     state: present
     force_init: true
-    # We remove the 'state_file' parameter here because it triggers the 
-    # deprecated -state flag. Instead, we let Terraform find 'terraform.tfstate' 
-    # naturally in the project_path.
+    # REMINDER: Ensure your main.tf has a 'backend "local" {}' block!
   environment:
-    # This ensures Terraform doesn't go looking in ~/.local/ or /root/
     TF_DATA_DIR: "/home/{{ ansible_env.SUDO_USER }}/k8s-projects/terraform/.terraform"
+    # Adding this ensures the provider knows where Docker is
+    DOCKER_HOST: "unix:///var/run/docker.sock"
   register: tf_result
-  
-- name: Show Terraform Output
+
+- name: 📊 Show Terraform Output
   debug:
-    var: tf_result
+    var: tf_result.stdout_lines
