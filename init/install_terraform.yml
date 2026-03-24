@@ -11,6 +11,7 @@
     repo: "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com/ jammy main"
     state: present
     filename: hashicorp
+    update_cache: yes
 
 - name: Install Terraform
   become: true
