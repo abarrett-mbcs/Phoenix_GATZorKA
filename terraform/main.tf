@@ -23,7 +23,7 @@ resource "k3d_cluster" "phoenix" {
   # Extra settings to make it "Ready for Work"
   k3d {
     disable_load_balancer = false
-    disable_image_handler = false
+    # disable_image_handler = false
   }
   
   # This makes sure k3d uses a specific version of k3s
