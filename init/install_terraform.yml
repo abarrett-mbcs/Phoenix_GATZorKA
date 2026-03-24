@@ -27,7 +27,7 @@
     state: directory
     mode: '0755'
 
-- name: 🛰️ Sync Terraform configuration from Repo to Workspace
+- name: Sync Terraform configuration from Repo to Workspace
   become: false
   # 'synchronize' is like a smart 'cp -r' that uses rsync logic
   synchronize:
