@@ -21,7 +21,7 @@
     update_cache: yes
 
 - name: Prepare Workspace and Sync Files
-  become: true # Use root to ensure we can write to /home
+  become: false # Use root to ensure we can write to /home
   block:
     - name: Create Project Folder
       file:
@@ -38,24 +38,21 @@
     dest: "/home/{{ ansible_env.SUDO_USER }}/k8s-projects/terraform/"
     recursive: yes
     delete: yes
-    # ADD THIS: Prevent rsync from deleting the state it finds on the target
     rsync_opts:
       - "--exclude=.terraform"
       - "--exclude=terraform.tfstate*"
       - "--exclude=.terraform.lock.hcl"
       
 - name: Initialize and Apply Terraform
-  become: true
-  become_user: "{{ ansible_env.SUDO_USER }}"
+  become: false
+  #become_user: "{{ ansible_env.SUDO_USER }}"
   community.general.terraform:
     project_path: "/home/{{ ansible_env.SUDO_USER }}/k8s-projects/terraform"
     state: present
     force_init: true
     # REMINDER: Ensure your main.tf has a 'backend "local" {}' block!
-  environment:
-    TF_DATA_DIR: "/home/{{ ansible_env.SUDO_USER }}/k8s-projects/terraform/.terraform"
-    # Adding this ensures the provider knows where Docker is
-    # DOCKER_HOST: "unix:///var/run/docker.sock"
+  #environment:
+    #TF_DATA_DIR: "/home/{{ ansible_env.SUDO_USER }}/k8s-projects/terraform/.terraform"
   register: tf_result
 
 - name: 📊 Show Terraform Output
