@@ -22,7 +22,7 @@ resource "k3d_cluster" "phoenix" {
 
   # Extra settings to make it "Ready for Work"
   k3d {
-    disable_loadbalancer = false
+    disable_load_balancer = false
     disable_image_handler = false
   }
   
