@@ -38,7 +38,6 @@
 
 - name: Initialize Terraform (The Handshake)
   become: false
-  become_user: "{{ ansible_user_dir }}"
   terraform:
     project_path: "/home/{{ ansible_env.SUDO_USER }}/k8s-projects/terraform"
     state: present
