@@ -47,15 +47,19 @@
     recursive: yes
     delete: yes # This keeps the workspace clean of "old junk"
 
-- name: 🏗️ Initialize Terraform (The Handshake)
+- name: 🏗️ Initialize and Apply Terraform (The 2026 Way)
   become: true
   become_user: "{{ ansible_env.SUDO_USER }}"
   community.general.terraform:
-    # Use the hardcoded /home/ path to bypass any 'tilde' or 'user_dir' confusion
     project_path: "/home/{{ ansible_env.SUDO_USER }}/k8s-projects/terraform"
-    state_file: "/home/{{ ansible_env.SUDO_USER }}/k8s-projects/terraform/terraform.tfstate"
     state: present
     force_init: true
+    # We remove the 'state_file' parameter here because it triggers the 
+    # deprecated -state flag. Instead, we let Terraform find 'terraform.tfstate' 
+    # naturally in the project_path.
+  environment:
+    # This ensures Terraform doesn't go looking in ~/.local/ or /root/
+    TF_DATA_DIR: "/home/{{ ansible_env.SUDO_USER }}/k8s-projects/terraform/.terraform"
   register: tf_result
   
 - name: Show Terraform Output
