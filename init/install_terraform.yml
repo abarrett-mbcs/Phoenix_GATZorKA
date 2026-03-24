@@ -13,7 +13,7 @@
     content: "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com noble main"
     mode: '0644'
 
-- name: Update and Install
+- name: Install Terraform
   become: true
   apt:
     name: terraform
