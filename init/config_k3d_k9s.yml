@@ -1,3 +1,11 @@
+- name: Ensure Kubernetes Config Directory Exists
+  become: true
+  become_user: "{{ ansible_env.SUDO_USER }}"
+  file:
+    path: "/home/{{ ansible_env.SUDO_USER }}/.kube"
+    state: directory
+    mode: '0700' # High security: only the user can enter this folder
+    
 - name: Export Kubeconfig
   become: true
   become_user: "{{ ansible_env.SUDO_USER }}"
