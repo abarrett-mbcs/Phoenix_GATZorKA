@@ -5,5 +5,5 @@
   changed_when: false
 
 - name: Download and install k3d
-  shell: curl -s https://raw.githubusercontent.com/k3d-io/k3d/main/install | bash
+  shell: curl -s https://raw.githubusercontent.com/k3d-io/k3d/main/install.sh | TAG=v5.6.0 bash
   when: k3d_check.rc != 0
