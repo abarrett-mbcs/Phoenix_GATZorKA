@@ -1,6 +1,14 @@
-- name: 🔗 Link Phoenix Cluster to Local Kubeconfig
+- name: Export Kubeconfig
   become: true
   become_user: "{{ ansible_env.SUDO_USER }}"
-  shell: "k3d kubeconfig merge phoenix --switch-context"
-  # This makes the task only run if the context isn't already set
-  changed_when: false
+  shell: "k3d kubeconfig get phoenix > /home/{{ ansible_env.SUDO_USER }}/.kube/config"
+  args:
+    creates: "/home/{{ ansible_env.SUDO_USER }}/.kube/config"
+
+- name: Fix Permissions (Standard Security)
+  become: true
+  file:
+    path: "/home/{{ ansible_env.SUDO_USER }}/.kube/config"
+    owner: "{{ ansible_env.SUDO_USER }}"
+    group: "{{ ansible_env.SUDO_USER }}"
+    mode: '0600' # Only the user can read/write
