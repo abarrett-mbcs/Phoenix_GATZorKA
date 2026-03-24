@@ -1,7 +1,7 @@
 - name: Export Kubeconfig
   become: true
   become_user: "{{ ansible_env.SUDO_USER }}"
-  shell: "k3d kubeconfig get phoenix > /home/{{ ansible_env.SUDO_USER }}/.kube/config"
+  shell: "k3d kubeconfig get phoenix-cluster > /home/{{ ansible_env.SUDO_USER }}/.kube/config"
   args:
     creates: "/home/{{ ansible_env.SUDO_USER }}/.kube/config"
 
