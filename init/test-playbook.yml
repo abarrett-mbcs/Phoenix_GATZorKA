@@ -38,3 +38,6 @@
       
     - name: Install k9s
       include_tasks: install_k3d_k9s.yml
+
+    - name: Config k9s
+      include_tasks: config_k3d_k9s.yml
