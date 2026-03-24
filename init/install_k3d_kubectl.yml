@@ -1,0 +1,21 @@
+- name: Download Google Cloud GPG key
+  become: true
+  shell: |
+    curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.29/deb/Release.key | \
+    gpg --dearmor --yes -o /usr/share/keyrings/kubernetes-apt-keyring.gpg
+  args:
+    creates: /usr/share/keyrings/kubernetes-apt-keyring.gpg
+
+- name: Add Kubernetes Repository
+  become: true
+  apt_repository:
+    repo: "deb [signed-by=/usr/share/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.29/deb/ /"
+    state: present
+    filename: kubernetes
+
+- name: Install Kubectl
+  become: true
+  apt:
+    name: kubectl
+    state: present
+    update_cache: yes
