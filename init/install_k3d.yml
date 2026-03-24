@@ -1,0 +1,9 @@
+- name: Check if k3d is installed
+  command: k3d --version
+  register: k3d_check
+  ignore_errors: yes
+  changed_when: false
+
+- name: Download and install k3d
+  shell: curl -s https://raw.githubusercontent.com/k3d-io/k3d/main/install | bash
+  when: k3d_check.rc != 0
