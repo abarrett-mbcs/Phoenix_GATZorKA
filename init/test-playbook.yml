@@ -24,6 +24,9 @@
     - name: Install essential terminal utils
       include_tasks: utils.yml
 
+    - name: Install docker
+      include_tasks: install_docker.yml
+      
     - name: Install k3d
       include_tasks: install_k3d.yml
       
