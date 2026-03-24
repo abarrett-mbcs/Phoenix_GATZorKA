@@ -38,8 +38,9 @@
 
 - name: 🏗️ Initialize Terraform (The Handshake)
   become: false
+  become_user: {{ ansible_user_dir }}
   terraform:
-    project_path: "{{ ansible_user_dir }}/k8s-projects/terraform"
+    project_path: "/home/{{ ansible_user_dir }}/k8s-projects/terraform"
     state: present
   register: tf_result
 
