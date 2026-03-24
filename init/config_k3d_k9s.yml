@@ -1,0 +1,6 @@
+- name: 🔗 Link Phoenix Cluster to Local Kubeconfig
+  become: true
+  become_user: "{{ ansible_env.SUDO_USER }}"
+  shell: "k3d kubeconfig merge phoenix --switch-context"
+  # This makes the task only run if the context isn't already set
+  changed_when: false
