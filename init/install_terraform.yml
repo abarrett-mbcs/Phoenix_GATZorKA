@@ -36,7 +36,7 @@
     recursive: yes
     delete: yes # This keeps the workspace clean of "old junk"
 
-- name: 🏗️ Initialize Terraform (The Handshake)
+- name: Initialize Terraform (The Handshake)
   become: false
   become_user: "{{ ansible_user_dir }}"
   terraform:
@@ -46,6 +46,6 @@
     init_reconfigure: true # Just in case things moved
   register: tf_result
 
-- name: 📊 Show Terraform Output
+- name: Show Terraform Output
   debug:
     var: tf_result
