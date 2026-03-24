@@ -1,0 +1,11 @@
+- name: Download and Install K9s
+  become: true
+  unarchive:
+    src: "https://github.com/derailed/k9s/releases/latest/download/k9s_Linux_amd64.tar.gz"
+    dest: /usr/local/bin
+    remote_src: yes
+    extra_opts:
+      - k9s
+    owner: root
+    group: root
+    mode: '0755'
