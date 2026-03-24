@@ -41,11 +41,11 @@
   become_user: "{{ ansible_env.SUDO_USER }}"
   terraform:
     project_path: "/home/{{ ansible_env.SUDO_USER }}/k8s-projects/terraform"
+    state_file: "/home/{{ ansible_env.SUDO_USER }}/k8s-projects/terraform/terraform.tfstate"
     state: present
     force_init: true  # <--- This is the key! It runs 'terraform init'
-    init_reconfigure: true # Just in case things moved
+    # init_reconfigure: true # Just in case things moved
   register: tf_result
-  ignore_errors: "{{ tf_result.msg | default('') is search('already exists') }}"
 
 - name: Show Terraform Output
   debug:
