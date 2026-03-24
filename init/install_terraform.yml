@@ -19,7 +19,18 @@
     name: terraform
     state: present
     update_cache: yes
-    
+
+- name: 🕵️ Check State File Existence
+  become: true
+  become_user: "{{ ansible_env.SUDO_USER }}"
+  stat:
+    path: "/home/{{ ansible_env.SUDO_USER }}/k8s-projects/terraform/terraform.tfstate"
+  register: st
+
+- name: 📊 Report Finding
+  debug:
+    msg: "Does the state file exist? {{ st.stat.exists }} - Path: {{ st.stat.path }}"
+
 - name: Prepare Terraform Working Directory
   become: false  # Usually run as your local user
   file:
@@ -36,17 +47,17 @@
     recursive: yes
     delete: yes # This keeps the workspace clean of "old junk"
 
-- name: Initialize Terraform (The Handshake)
-  become: false
+- name: 🏗️ Initialize Terraform (The Handshake)
+  become: true
   become_user: "{{ ansible_env.SUDO_USER }}"
-  terraform:
+  community.general.terraform:
+    # Use the hardcoded /home/ path to bypass any 'tilde' or 'user_dir' confusion
     project_path: "/home/{{ ansible_env.SUDO_USER }}/k8s-projects/terraform"
     state_file: "/home/{{ ansible_env.SUDO_USER }}/k8s-projects/terraform/terraform.tfstate"
     state: present
-    force_init: true  # <--- This is the key! It runs 'terraform init'
-    # init_reconfigure: true # Just in case things moved
+    force_init: true
   register: tf_result
-
+  
 - name: Show Terraform Output
   debug:
     var: tf_result
