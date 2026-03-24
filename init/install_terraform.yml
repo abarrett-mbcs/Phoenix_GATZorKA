@@ -6,6 +6,7 @@
 - name: Add HashiCorp Repository
   apt_repository:
     repo: "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com/ jammy main"
+    filename: hashicorp
     state: present
     
 - name: Install Terraform
@@ -13,4 +14,3 @@
     name: terraform
     state: present
     update_cache: yes
-
