@@ -1,7 +1,7 @@
 - name: Install HashiCorp GPG key
   get_url:
     url: https://apt.releases.hashicorp.com/gpg
-    dest: /usr/share/keyrings/hasicorp-archive-keyring.gpg
+    dest: /usr/share/keyrings/hashicorp-archive-keyring.gpg
 
 - name: Add HashiCorp Repository
   apt_repository:
