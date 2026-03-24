@@ -8,7 +8,7 @@
 - name: Add HashiCorp Repository
   become: true
   apt_repository:
-    repo: "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com/ noble main"
+    repo: "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com noble main"
     state: present
     filename: hashicorp
     update_cache: yes
