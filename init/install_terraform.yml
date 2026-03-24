@@ -42,7 +42,9 @@
   terraform:
     project_path: "/home/{{ ansible_env.SUDO_USER }}/k8s-projects/terraform"
     state: present
-  register: tf_result
+    force_init: true  # <--- This is the key! It runs 'terraform init'
+    init_reconfigure: true # Just in case things moved
+    register: tf_result
 
 - name: 📊 Show Terraform Output
   debug:
