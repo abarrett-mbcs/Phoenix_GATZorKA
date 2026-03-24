@@ -33,3 +33,8 @@
     - name: Install k3d
       include_tasks: install_k3d.yml
       
+    - name: Install kubectl
+      include_tasks: install_k3d_kubectl.yml
+      
+    - name: Install k9s
+      include_tasks: install_k3d_k9s.yml
