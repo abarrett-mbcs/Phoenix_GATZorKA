@@ -1,7 +1,7 @@
 terraform {
   required_providers {
     k3d = {
-      source  = "pvatechnik/k3d"
+      source  = "pvotal-tech/k3d"
       version = "0.0.15" # Check for the latest version!
     }
   }
