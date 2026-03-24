@@ -37,8 +37,9 @@
     delete: yes # This keeps the workspace clean of "old junk"
 
 - name: 🏗️ Initialize Terraform (The Handshake)
+  become: false
   terraform:
-    project_path: "{{ ansible_user_dir }}//k8s-projects/terraform"
+    project_path: "{{ ansible_user_dir }}/k8s-projects/terraform"
     state: present
   register: tf_result
 
