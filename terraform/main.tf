@@ -14,6 +14,12 @@ resource "k3d_cluster" "phoenix" {
   servers = 1
   agents  = 2
 
+  # THIS IS THE MAGIC LINE
+  kubeconfig {
+    update_default_kubeconfig = true
+    switch_context            = true
+  }
+
   # This ensures your 2011 MacBook can talk to the cluster locally
   kube_api {
     host_ip   = "127.0.0.1"
