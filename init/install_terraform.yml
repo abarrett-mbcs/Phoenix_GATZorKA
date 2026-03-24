@@ -23,7 +23,7 @@
 - name: Prepare Terraform Working Directory
   become: false  # Usually run as your local user
   file:
-    path: "~/k8s-projects/terraform"
+    path: "/home/{{ ansible_env.SUDO_USER }}/k8s-projects/terraform"
     state: directory
     mode: '0755'
 
@@ -32,7 +32,7 @@
   # 'synchronize' is like a smart 'cp -r' that uses rsync logic
   synchronize:
     src: "~/Developer/GATZorKA/Init/Phoenix_GATZorKA/terraform/"
-    dest: "~/k8s-projects/terraform/"
+    dest: "/home/{{ ansible_env.SUDO_USER }}/k8s-projects/terraform/"
     recursive: yes
     delete: yes # This keeps the workspace clean of "old junk"
 
