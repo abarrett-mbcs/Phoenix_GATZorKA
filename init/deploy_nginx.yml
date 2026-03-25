@@ -1,5 +1,6 @@
 - name: Deploy Replicated Nginx
   kubernetes.core.k8s:
+    kubeconfig: "/home/{{ ansible_env.SUDO_USER }}/.kube/config"
     state: present
     definition:
       apiVersion: apps/v1
