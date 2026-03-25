@@ -44,3 +44,7 @@
 
     - name: Install Lens
       include_tasks: install_lens.yml
+
+    - name: Deploy NginX
+      include_tasks: deploy_nginx.yml
+
