@@ -5,3 +5,7 @@
       - htop
     state: present
     
+- name: Ensure Kubernetes Python library is present
+  pip:
+    name: kubernetes
+    state: present
