@@ -5,7 +5,8 @@
       - htop
     state: present
     
-- name: Ensure Kubernetes Python library is present
-  pip:
-    name: kubernetes
+- name: Install Kubernetes Python library via Apt
+  become: true
+  ansible.builtin.apt:
+    name: python3-kubernetes
     state: present
