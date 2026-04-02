@@ -1,4 +1,4 @@
-- name: Download Google Cloud GPG key
+- name: Download Kubernetes GPG key
   become: true
   shell: |
     curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.29/deb/Release.key | \
