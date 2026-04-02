@@ -6,3 +6,22 @@
     ./get_helm.sh
   args:
     creates: /usr/local/bin/helm 
+
+- name: Prepare Workspace and Sync Files
+  become: false
+  block:
+    - name: Create Project Folder
+      file:
+        path: "/home/{{ ansible_env.SUDO_USER }}/k8s-projects/charts"
+        state: directory
+        owner: "{{ ansible_env.SUDO_USER }}"
+        group: "{{ ansible_env.SUDO_USER }}"
+        mode: '0755'
+
+- name: Sync Helm charts from Repo to Workspace
+  become: false
+  synchronize:
+    src: "~/Developer/GATZorKA/Init/Phoenix_GATZorKA/charts/"
+    dest: "/home/{{ ansible_env.SUDO_USER }}/k8s-projects/charts/"
+    recursive: yes
+    delete: yes
