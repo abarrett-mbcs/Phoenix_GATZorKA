@@ -50,3 +50,6 @@
 
     - name: Create Loadbalancer
       include_tasks: create_loadbalancer.yml
+
+    - name: Create Ingress
+      include_tasks: create_ingress.yml
