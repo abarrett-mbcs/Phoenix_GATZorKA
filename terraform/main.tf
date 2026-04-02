@@ -28,4 +28,11 @@ resource "k3d_cluster" "phoenix" {
   
   # This makes sure k3d uses a specific version of k3s
   image = "rancher/k3s:v1.27.4-k3s1"
+
+  # This maps your laptop's 8080 to the cluster's internal load balancer port 80
+  port {
+    host_port      = 8080
+    container_port = 80
+    node_filters   = ["loadbalancer"]
+  }
 }
