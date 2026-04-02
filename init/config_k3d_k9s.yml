@@ -1,22 +1,29 @@
-- name: Ensure Kubernetes Config Directory Exists
-  become: true
-  become_user: "{{ ansible_env.SUDO_USER }}"
-  file:
-    path: "/home/{{ ansible_env.SUDO_USER }}/.kube"
-    state: directory
-    mode: '0700' # High security: only the user can enter this folder
-    
-- name: Export Kubeconfig
-  become: true
-  become_user: "{{ ansible_env.SUDO_USER }}"
-  shell: "k3d kubeconfig get phoenix-cluster > /home/{{ ansible_env.SUDO_USER }}/.kube/config"
-  args:
-    creates: "/home/{{ ansible_env.SUDO_USER }}/.kube/config"
+---
+- name: Fix Kubernetes Config
+  hosts: localhost
+  connection: local
 
-- name: Fix Permissions (Standard Security)
-  become: true
-  file:
-    path: "/home/{{ ansible_env.SUDO_USER }}/.kube/config"
-    owner: "{{ ansible_env.SUDO_USER }}"
-    group: "{{ ansible_env.SUDO_USER }}"
-    mode: '0600' # Only the user can read/write
+  tasks: # <--- CRITICAL: Everything below must be indented under this
+    - name: Ensure Kubernetes Config Directory Exists
+      become: true
+      # No 'become_user' here; we want root to ensure the directory is created
+      file:
+        path: "/home/{{ ansible_env.SUDO_USER }}/.kube"
+        state: directory
+        owner: "{{ ansible_env.SUDO_USER }}"
+        group: "{{ ansible_env.SUDO_USER }}"
+        mode: '0700'
+
+    - name: Export Kubeconfig
+      become: true
+      become_user: "{{ ansible_env.SUDO_USER }}"
+      # Removed 'creates' to force it to overwrite the broken file
+      shell: "k3d kubeconfig get phoenix-cluster > /home/{{ ansible_env.SUDO_USER }}/.kube/config"
+
+    - name: Fix Permissions (Standard Security)
+      become: true
+      file:
+        path: "/home/{{ ansible_env.SUDO_USER }}/.kube/config"
+        owner: "{{ ansible_env.SUDO_USER }}"
+        group: "{{ ansible_env.SUDO_USER }}"
+        mode: '0600'
