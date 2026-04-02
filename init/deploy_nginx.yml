@@ -1,9 +1,9 @@
 - name: Deploy Phoenix Web via Helm
-      kubernetes.core.helm:
-        kubeconfig: "/home/{{ ansible_env.SUDO_USER }}/.kube/config"
-        name: phoenix-release
-        chart_ref: "/home/{{ ansible_env.SUDO_USER }}/k8s-projects/charts/phoenix-web"
-        release_namespace: default
-        state: present
-        values:
-          replicaCount: 3
+  kubernetes.core.helm:
+    kubeconfig: "/home/{{ ansible_env.SUDO_USER }}/.kube/config"
+    name: phoenix-release
+    chart_ref: "/home/{{ ansible_env.SUDO_USER }}/k8s-projects/charts/phoenix-web"
+    release_namespace: default
+    state: present
+    values:
+      replicaCount: 3
