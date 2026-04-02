@@ -6,4 +6,4 @@
     release_namespace: default
     state: present
     values:
-      replicaCount: 5
+      replicaCount: 3
