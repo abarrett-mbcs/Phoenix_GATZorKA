@@ -1,0 +1,24 @@
+- name: Create Ingress to expose Nginx on Localhost
+  kubernetes.core.k8s:
+    kubeconfig: "/home/{{ ansible_env.SUDO_USER }}/.kube/config"
+    state: present
+    definition:
+      apiVersion: networking.k8s.io/v1
+      kind: Ingress
+      metadata:
+        name: phoenix-ingress
+        namespace: default
+        annotations:
+          # This tells k3d's built-in Traefik to handle this traffic
+          kubernetes.io/ingress.class: traefik
+      spec:
+        rules:
+        - http:
+            paths:
+            - path: /
+              pathType: Prefix
+              backend:
+                service:
+                  name: phoenix-svc
+                  port:
+                    number: 80
