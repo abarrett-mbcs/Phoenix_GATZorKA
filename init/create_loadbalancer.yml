@@ -1,0 +1,18 @@
+- name: Create LoadBalancer Service for Nginx
+  kubernetes.core.k8s:
+    kubeconfig: "/home/{{ ansible_env.SUDO_USER }}/.kube/config"
+    state: present
+    definition:
+      apiVersion: v1
+      kind: Service
+      metadata:
+        name: phoenix-svc
+        namespace: default
+      spec:
+        selector:
+          app: phoenix  # This MUST match the label on your Deployment
+        ports:
+          - protocol: TCP
+            port: 80          # The port on the Service
+            targetPort: 80    # The port on the Pod
+        type: LoadBalancer    # k3d will map this to a local port automatically
