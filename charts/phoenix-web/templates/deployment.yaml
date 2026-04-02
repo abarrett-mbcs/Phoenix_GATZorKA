@@ -12,8 +12,37 @@ spec:
       labels:
         app: {{ .Chart.Name }}
     spec:
+      # 1. Pod Level Security (Fixes KSV-0118)
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 101 # Nginx official non-root user ID
+        fsGroup: 101
+        
       containers:
         - name: nginx
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          # 2. Container Level Security (Fixes KSV-0014 & KSV-0118)
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true # The container can't write to its own disk
+            capabilities:
+              drop:
+                - ALL
           ports:
             - containerPort: 80
+
+          volumeMounts:
+            - name: tmp-volume
+              mountPath: /tmp
+            - name: cache-volume
+              mountPath: /var/cache/nginx
+            - name: run-volume
+              mountPath: /var/run
+              
+          volumes:
+            - name: tmp-volume
+              emptyDir: {}
+            - name: cache-volume
+              emptyDir: {}
+            - name: run-volume
+              emptyDir: {}
