@@ -43,14 +43,14 @@
       - "--exclude=terraform.tfstate*"
       - "--exclude=.terraform.lock.hcl"
 
-#- name: 📋 Create Plan (to check if necessary)
+#- name: Create Plan (to check if necessary)
 #  community.general.terraform:
 #    project_path: "/home/{{ user }}/k8s-projects/terraform"
 #    plan_file: "/home/{{ user }}/k8s-projects/terraform/phoenix.tfplan" # GIVE IT A NAME
 #    state: planned
 #  register: tf_plan
 
-#- name: 🛑 Pause to look at the plan details before apply
+#- name: Pause to look at the plan details before apply
 #  pause:
 #    prompt: "Terraform wants to create {{ tf_plan.outputs.resources_to_add }}. Press enter to continue."
 #  when: tf_plan.changed
@@ -64,7 +64,7 @@
     force_init: true    #remove this line if you are using the plan file
   register: tf_result
 
-- name: 📊 Show Terraform Output
+- name: Show Terraform Output
   debug:
     var: tf_result # tf_result.stdout_lines
 
