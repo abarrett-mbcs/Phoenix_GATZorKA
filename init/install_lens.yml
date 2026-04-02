@@ -1,4 +1,4 @@
-- name: 🔍 Install Lens (The Kubernetes IDE)
+- name: Install Lens (The Kubernetes IDE)
   become: true
   community.general.snap:
     name: kontena-lens
