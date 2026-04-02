@@ -1,0 +1,32 @@
+name: GATZorKA CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  lint-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Helm
+        uses: azure/setup-helm@v4
+        with:
+          version: 'v3.12.0'
+
+      - name: Helm Lint
+        run: |
+          helm lint ./k8s-projects/charts/phoenix-web
+
+      - name: Scan Helm Chart for Security
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: 'config'
+          hide-progress: false
+          format: 'table'
+          exit-code: '1' # This fails the build if high-severity issues are found
+          severity: 'CRITICAL,HIGH'
