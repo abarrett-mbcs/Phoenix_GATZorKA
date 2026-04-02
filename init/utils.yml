@@ -4,9 +4,24 @@
     name:
       - htop
     state: present
-    
+
 - name: Install Kubernetes Python library via Apt
   become: true
   ansible.builtin.apt:
-    name: python3-kubernetes
+    name: 
+      - btop
+      - python3-kubernetes
     state: present
+
+- name: Add VS Code Repository
+      become: true
+      ansible.builtin.apt_repository:
+        repo: "deb [arch=amd64] https://packages.microsoft.com/repos/code stable main"
+        state: present
+
+- name: Install VS Code
+  become: true
+  ansible.builtin.apt:
+    name: code
+    state: present
+    update_cache: yes
