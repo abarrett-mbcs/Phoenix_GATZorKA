@@ -11,9 +11,9 @@
       spec:
         type: NodePort
         selector:
-          app: phoenix  # This MUST match the label on your Deployment
+          app: phoenix
         ports:
           - protocol: TCP
             port: 80          # The port on the Service
-            nodePort: 30080
             targetPort: 80    # The port on the Pod
+            nodePort: 30080
