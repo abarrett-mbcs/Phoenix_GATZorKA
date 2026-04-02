@@ -9,11 +9,10 @@
         name: phoenix-svc
         namespace: default
       spec:
-        type: NodePort
+        type: ClusterIP
         selector:
           app: phoenix
         ports:
           - protocol: TCP
             port: 80          # The port on the Service
             targetPort: 80    # The port on the Pod
-            nodePort: 30080
