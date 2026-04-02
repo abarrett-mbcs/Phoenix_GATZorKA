@@ -20,7 +20,7 @@ jobs:
 
       - name: Helm Lint
         run: |
-          helm lint ./k8s-projects/charts/phoenix-web
+          helm lint ./charts/phoenix-web
 
       - name: Scan Helm Chart for Security
         uses: aquasecurity/trivy-action@master
