@@ -1,7 +1,7 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: {{ .Values.ingress.name }}
+  name: {{ .values.ingress.name }}
   annotations:
     kubernetes.io/ingress.class: traefik
 spec:
@@ -12,6 +12,6 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: {{ .Values.service.name }}
+            name: {{ .values.service.name }}
             port:
-              number: {{ .Values.service.port }}
+              number: {{ .values.service.port }}
