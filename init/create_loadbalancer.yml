@@ -17,4 +17,3 @@
             port: 80          # The port on the Service
             nodePort: 30080
             targetPort: 80    # The port on the Pod
-        type: LoadBalancer    # k3d will map this to a local port automatically
