@@ -48,3 +48,5 @@
     - name: Deploy NginX
       include_tasks: deploy_nginx.yml
 
+    - name: Create Loadbalancer
+      include_tasks: create_loadbalancer.yml
