@@ -1,6 +1,8 @@
-- name: Create Ingress for ArgoCD UI
+- name: Set Kubeconfig path for this include
   set_fact:
     k8s_kubeconfig: "/home/{{ ansible_env.SUDO_USER }}/.kube/config"
+    
+- name: Create Ingress for ArgoCD UI
   kubernetes.core.k8s:
     kubeconfig: "{{ k8s_kubeconfig }}"
     state: present
