@@ -53,3 +53,7 @@
 
     - name: Install ArgoCD
       include_tasks: install_argocd.yml
+
+    - name: Setup ArgoCD
+      include_tasks: setup_argocd.yml
+      
