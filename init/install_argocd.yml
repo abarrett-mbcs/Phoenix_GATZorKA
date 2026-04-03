@@ -2,7 +2,7 @@
   kubernetes.core.helm:
     kubeconfig: "/home/{{ ansible_env.SUDO_USER }}/.kube/config"
     name: argocd
-    chart_ref: argo/argo-cd
+    chart_ref: argo-cd
     release_namespace: argocd
     create_namespace: true
     chart_repo_url: https://argoproj.github.io/argo-helm
