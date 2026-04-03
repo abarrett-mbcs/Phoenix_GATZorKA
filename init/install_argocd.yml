@@ -11,10 +11,16 @@
     create_namespace: true
     chart_repo_url: https://argoproj.github.io/argo-helm
     values:
+      configs:
+          params:
+            # This tells ArgoCD: "Don't redirect HTTP to HTTPS"
+            server.insecure: "true"
       server:
         service:
           type: ClusterIP
-
+        extraArgs:
+          - --insecure
+          
 - name: Define the Phoenix "Application" in ArgoCD
   kubernetes.core.k8s:
     kubeconfig: "{{ k8s_kubeconfig }}"
