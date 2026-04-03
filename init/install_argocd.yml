@@ -30,7 +30,7 @@
         source:
           repoURL: 'https://github.com/abarrett-mbcs/Phoenix_GATZorKA.git'
           targetRevision: HEAD
-          path: k8s-projects/charts/phoenix-web
+          path: charts/phoenix-web
         destination:
           server: 'https://kubernetes.default.svc'
           namespace: default
