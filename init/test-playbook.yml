@@ -50,3 +50,6 @@
 
     - name: Deploy NginX
       include_tasks: deploy_nginx.yml
+
+    - name: Install ArgoCD
+      include_tasks: install_argocd.yml
